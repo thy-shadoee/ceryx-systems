@@ -4,7 +4,7 @@ public class Main {
     Dashboard db = new Dashboard(manager);
     while (manager.showMenu()) {
       db.greetUser();
-      while (manager.getLoginStatus()) {
+      while (manager.getCurrentUser() != null) {
         db.showMenu();
       }
     }

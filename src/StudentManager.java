@@ -6,7 +6,6 @@ public class StudentManager {
   private List<Student> students = new ArrayList<>();
   private Scanner input = new Scanner(System.in);
   private int nextId = 1;
-  private boolean isLoggedIn = false;
   private Student currentUser;
 
   private boolean validatePassword(String pw, int length) {
@@ -42,10 +41,6 @@ public class StudentManager {
     return currentUser;
   }
 
-  public boolean getLoginStatus() {
-    return isLoggedIn;
-  }
-
   public void register() {
     String username = inputUsername();
     String password = inputPassword(false);
@@ -54,7 +49,7 @@ public class StudentManager {
     System.out.println("Registration successful.");
   }
 
-  public boolean login() {
+  public void login() {
     String username = inputUsername();
     String password = inputPassword(true);
 
@@ -62,20 +57,19 @@ public class StudentManager {
       if (student.getUsername().equals(username) && student.getPassword().equals(password)) {
         System.out.println("Login successful.");
         this.currentUser = student;
-        return true;
+        return;
       }
     }
     System.out.println("Login failed. Username or password incorrect.");
-    return false;
+    return;
   }
 
   public void logout() {
     this.currentUser = null;
-    this.isLoggedIn = false;
   }
 
   public boolean showMenu() {
-    while (!isLoggedIn) {
+    while (currentUser == null) {
       System.out.println("Log In or Register to Ceryx:");
       System.out.println("\n(1) Register");
       System.out.println("(2) Log In");
@@ -88,7 +82,7 @@ public class StudentManager {
           register();
           break;
         case 2:
-          this.isLoggedIn = login();
+          login();
           break;
         case 3:
           return false;
