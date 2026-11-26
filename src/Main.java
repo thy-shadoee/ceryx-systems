@@ -1,10 +1,11 @@
 public class Main {
   public static void main(String[] args) {
-    StudentManager manager = new StudentManager();
-    Dashboard db = new Dashboard(manager);
-    while (manager.showMenu()) {
+    StudentManager studentManager = new StudentManager();
+    LoginMenu loginMenu = new LoginMenu(studentManager);
+    Dashboard db = new Dashboard(studentManager);
+    while (loginMenu.display()) {
       db.greetUser();
-      while (manager.getCurrentUser() != null) {
+      while (studentManager.getCurrentUser() != null) {
         db.showMenu();
       }
     }
