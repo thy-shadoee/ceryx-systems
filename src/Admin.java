@@ -6,13 +6,14 @@ public class Admin extends User {
   }
 
   @Override
-  public List<String> getMenuItems() {
+  public List<MenuItem> getMenuItems(MenuActionFactory factory) {
     return List.of(
-        "View Announcements",
-        "Manage Announcements",
-        "Manager Members",
-        "Account Details",
-        "Log Out"
+        factory.viewAnnouncements(),
+        factory.manageAnnouncements(),
+        factory.manageUsers(),
+        factory.viewMembers(),
+        factory.accountDetails(),
+        factory.logout()
         );
   }
 }

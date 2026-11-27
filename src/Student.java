@@ -6,11 +6,11 @@ public class Student extends User {
   }
 
   @Override
-  public List<String> getMenuItems() {
+  public List<MenuItem> getMenuItems(MenuActionFactory factory) {
     return List.of(
-        "View Announcements",
-        "Account Details",
-        "Log Out"
+        factory.viewAnnouncements(),
+        factory.accountDetails(),
+        factory.logout()
         );
   }
 }

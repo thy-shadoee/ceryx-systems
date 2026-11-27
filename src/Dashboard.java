@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,37 +19,30 @@ public class Dashboard {
   }
 
   public void showMenu() {
-    List<String> menuItems = new ArrayList<>();
+    User currentUser = userManager.getCurrentUser();
+    if (currentUser == null) {
+      return;
+    }
 
-    // TODO: Add menu items based on permission level.
-    menuItems.add("View Announcements");
-    menuItems.add("Account Details");
-    menuItems.add("Log Out");
+    MenuActionFactory factory = new MenuActionFactory(currentUser, userManager);
+    List<MenuItem> menuItems = currentUser.getMenuItems(factory);
 
     System.out.println();
     for (int i = 0; i < menuItems.size(); i++) {
-      int idx = i + 1;
-      System.out.printf("(%d) %s\n", idx, menuItems.get(i));
+      System.out.printf("(%d) %s%n", i+1, menuItems.get(i).label());
     }
 
-    int choice = input.nextInt();
-    input.nextLine();
-    if (choice >= 1 && choice <= menuItems.size()) {
-      String selectedMenuItem = menuItems.get(choice - 1);
-
-      switch (selectedMenuItem) {
-        case "View Announcements":
-        case "Account Details":
-          System.out.println("Not Implemented Yet.");
-          break;
-        case "Log Out":
-          userManager.logout();
-          return;
-        default:
-          System.out.println("Invalid choice.");
+    try {
+      int choice = input.nextInt();
+      input.nextLine();
+      if (choice >= 1 && choice <= menuItems.size()) {
+        menuItems.get(choice - 1).execute();
+      } else {
+        System.out.println("Invalid choice.");
       }
-    } else {
-      System.out.println("Invalid choice.");
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid input: " + e.getMessage());
+      input.nextLine();
     }
   }
 }
