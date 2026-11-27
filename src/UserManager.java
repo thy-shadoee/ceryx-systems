@@ -5,6 +5,7 @@ import java.util.List;
  * StudentManager
  */
 public class UserManager {
+  private final CredentialsValidator validator = new CredentialsValidator();
   private List<User> users = new ArrayList<>();
   private int nextId = 1;
   private User currentUser;
@@ -29,20 +30,19 @@ public class UserManager {
   }
 
   public boolean register(String username, String password) {
-    if (username == null || username.trim().isEmpty()) {
+    String cleanUsername = validator.cleanUsername(username);
+    if (!validator.isValidUsername(cleanUsername)) {
       System.out.println("Registration failed: Username must not be empty.");
       return false;
     }
 
-    username = username.trim();
-
-    if (password == null || password.length() < 8) {
+    if (!validator.isValidPassword(password)) {
       System.out.println("Registration failed: Password must have at least eight (8) characters.");
       return false;
     }
 
-    if (findUserbyUsername(username) != null) {
-      System.out.println("Registration failed: This username already exists.");
+    if (findUserbyUsername(cleanUsername) != null) {
+      System.out.println("Registration failed: This username is already taken.");
       return false;
     }
 
@@ -52,8 +52,7 @@ public class UserManager {
   }
 
   public boolean login(String username, String password) {
-    String trimmedUsername = username == null ? "" : username.trim();
-    User user = findUserbyUsername(trimmedUsername);
+    User user = findUserbyUsername(validator.cleanUsername(username));
     if (user != null && user.matchesPassword(password)) {
       currentUser = user;
       return true;
