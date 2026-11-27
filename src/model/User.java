@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 public abstract class User {
   private final int id;
   private final String username;
@@ -34,6 +32,4 @@ public abstract class User {
   public void setPassword(String password) {
     this.password = password;
   }
-
-  public abstract List<MenuItem> getMenuItems(MenuActionFactory factory);
 }
