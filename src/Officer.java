@@ -6,12 +6,13 @@ public class Officer extends User {
   }
 
   @Override
-  public List<String> getMenuItems() {
+  public List<MenuItem> getMenuItems(MenuActionFactory factory) {
     return List.of(
-        "View Announcements",
-        "Manage Announcements",
-        "Account Details",
-        "Log Out"
+        factory.viewAnnouncements(),
+        factory.manageAnnouncements(),
+        factory.viewMembers(),
+        factory.accountDetails(),
+        factory.logout()
         );
   }
 }

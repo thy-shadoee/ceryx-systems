@@ -33,5 +33,5 @@ public abstract class User {
     this.password = password;
   }
 
-  public abstract List<String> getMenuItems();
+  public abstract List<MenuItem> getMenuItems(MenuActionFactory factory);
 }
