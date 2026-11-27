@@ -4,48 +4,58 @@ import java.util.List;
 /**
  * StudentManager
  */
-public class StudentManager {
-  private List<Student> students = new ArrayList<>();
+public class UserManager {
+  private List<User> users = new ArrayList<>();
   private int nextId = 1;
-  private Student currentUser;
+  private User currentUser;
 
-  public Student getCurrentUser() {
+  public UserManager() {
+    // Demo Accounts
+    users.add(new Officer(nextId++, "officer", "officer1234"));
+    users.add(new Admin(nextId++, "admin", "admin1234"));
+  }
+
+  public User getCurrentUser() {
     return currentUser;
   }
 
-  private Student findStudentByUsername(String username) {
-    for (Student student: students) {
-      if (student.getUsername().equals(username)) {
-        return student;
+  private User findUserbyUsername(String username) {
+    for (User user: users) {
+      if (user.getUsername().equals(username)) {
+        return user;
       }
     }
-
     return null;
   }
 
   public boolean register(String username, String password) {
-    username = username.trim();
     if (username == null || username.trim().isEmpty()) {
       System.out.println("Registration failed: Username must not be empty.");
       return false;
     }
+
+    username = username.trim();
+
     if (password == null || password.length() < 8) {
       System.out.println("Registration failed: Password must have at least eight (8) characters.");
       return false;
     }
-    if (findStudentByUsername(username) != null) {
+
+    if (findUserbyUsername(username) != null) {
       System.out.println("Registration failed: This username already exists.");
       return false;
     }
-    students.add(new Student(nextId, username, password));
+
+    users.add(new Student(nextId, username, password));
     nextId++;
     return true;
   }
 
   public boolean login(String username, String password) {
-    Student student = findStudentByUsername(username.trim());
-    if (student != null && student.getPassword().equals(password)) {
-      currentUser = student;
+    String trimmedUsername = username == null ? "" : username.trim();
+    User user = findUserbyUsername(trimmedUsername);
+    if (user != null && user.matchesPassword(password)) {
+      currentUser = user;
       return true;
     }
 
