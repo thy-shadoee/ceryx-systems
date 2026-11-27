@@ -1,5 +1,7 @@
 package ui;
 
+import service.UserManager;
+
 /**
  * LoginMenu
  */

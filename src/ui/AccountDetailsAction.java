@@ -1,5 +1,7 @@
 package ui;
 
+import model.User;
+
 public class AccountDetailsAction implements MenuItem {
   public final User user;
 

@@ -1,3 +1,8 @@
+import service.UserManager;
+import ui.ConsoleInput;
+import ui.Dashboard;
+import ui.LoginMenu;
+
 public class Main {
   public static void main(String[] args) {
     UserManager userManager = new UserManager();
