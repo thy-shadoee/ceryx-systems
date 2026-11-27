@@ -1,13 +1,12 @@
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class Dashboard {
   private final UserManager userManager;
-  private Scanner input = new Scanner(System.in);
+  private final ConsoleInput input;
 
-  public Dashboard(UserManager userManager) {
+  public Dashboard(UserManager userManager, ConsoleInput input) {
     this.userManager = userManager;
+    this.input = input;
   }
 
   public void greetUser() {
@@ -32,17 +31,11 @@ public class Dashboard {
       System.out.printf("(%d) %s%n", i+1, menuItems.get(i).label());
     }
 
-    try {
-      int choice = input.nextInt();
-      input.nextLine();
-      if (choice >= 1 && choice <= menuItems.size()) {
-        menuItems.get(choice - 1).execute();
-      } else {
-        System.out.println("Invalid choice.");
-      }
-    } catch (InputMismatchException e) {
-      System.out.println("Invalid input: " + e.getMessage());
-      input.nextLine();
+    int choice = input.readInt();
+    if (choice >= 1 && choice <= menuItems.size()) {
+      menuItems.get(choice - 1).execute();
+    } else {
+      System.out.println("Invalid choice.");
     }
   }
 }

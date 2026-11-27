@@ -1,21 +1,20 @@
-import java.util.Scanner;
-
 /**
  * LoginMenu
  */
 public class LoginMenu {
   private UserManager userManager;
-  private Scanner input = new Scanner(System.in);
+  private final ConsoleInput input;
 
-  public LoginMenu(UserManager userManager) {
+  public LoginMenu(UserManager userManager, ConsoleInput input) {
     this.userManager = userManager;
+    this.input = input;
   }
 
   private void registerUser() {
     System.out.print("Enter username: ");
-    String username = input.nextLine();
+    String username = input.readLine();
     System.out.print("Enter password: ");
-    String password = input.nextLine();
+    String password = input.readLine();
     if (userManager.register(username, password)) {
       userManager.login(username, password);
       System.out.println("Registration successful. You are now logged in.");
@@ -24,9 +23,9 @@ public class LoginMenu {
 
   private void loginUser() {
     System.out.print("Enter username: ");
-    String username = input.nextLine();
+    String username = input.readLine();
     System.out.print("Enter password: ");
-    String password = input.nextLine();
+    String password = input.readLine();
     if (!userManager.login(username, password)) {
       System.out.println("Login failed. Username or password are incorrect.");
       return;
@@ -41,16 +40,16 @@ public class LoginMenu {
       System.out.println("(2) Log In");
       System.out.println("(3) Exit");
 
-      String choice = input.nextLine();
+      int choice = input.readInt();
 
       switch (choice) {
-        case "1":
+        case 1:
           registerUser();
           break;
-        case "2":
+        case 2:
           loginUser();
           break;
-        case "3":
+        case 3:
           return false;
         default:
           System.out.println("Invalid option.");
