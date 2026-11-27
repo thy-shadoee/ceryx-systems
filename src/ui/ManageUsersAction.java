@@ -1,3 +1,5 @@
+package ui;
+
 public class ManageUsersAction implements MenuItem {
   @Override
   public String label() {

@@ -1,3 +1,5 @@
+package ui;
+
 public class ViewAnnouncementsAction implements MenuItem {
   @Override
   public String label() {

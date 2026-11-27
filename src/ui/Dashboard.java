@@ -1,4 +1,9 @@
+package ui;
+
 import java.util.List;
+
+import model.User;
+import service.UserManager;
 
 public class Dashboard {
   private final UserManager userManager;
@@ -24,7 +29,7 @@ public class Dashboard {
     }
 
     MenuActionFactory factory = new MenuActionFactory(currentUser, userManager);
-    List<MenuItem> menuItems = currentUser.getMenuItems(factory);
+    List<MenuItem> menuItems = factory.createMenuFor(currentUser);
 
     System.out.println();
     for (int i = 0; i < menuItems.size(); i++) {

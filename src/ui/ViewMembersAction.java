@@ -1,3 +1,5 @@
+package ui;
+
 public class ViewMembersAction implements MenuItem {
   @Override
   public String label() {

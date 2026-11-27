@@ -1,3 +1,5 @@
+package model;
+
 public enum Role {
   STUDENT(1), OFFICER(2), ADMIN(3);
 

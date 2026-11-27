@@ -1,3 +1,5 @@
+package service;
+
 public class CredentialsValidator {
   public String cleanUsername(String username) {
     if (username == null) {
