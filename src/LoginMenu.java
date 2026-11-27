@@ -4,11 +4,11 @@ import java.util.Scanner;
  * LoginMenu
  */
 public class LoginMenu {
-  private StudentManager studentManager;
+  private UserManager userManager;
   private Scanner input = new Scanner(System.in);
 
-  public LoginMenu(StudentManager studentManager) {
-    this.studentManager = studentManager;
+  public LoginMenu(UserManager userManager) {
+    this.userManager = userManager;
   }
 
   private void registerUser() {
@@ -16,8 +16,8 @@ public class LoginMenu {
     String username = input.nextLine();
     System.out.print("Enter password: ");
     String password = input.nextLine();
-    if (studentManager.register(username, password)) {
-      studentManager.login(username, password);
+    if (userManager.register(username, password)) {
+      userManager.login(username, password);
       System.out.println("Registration successful. You are now logged in.");
     }
   }
@@ -27,7 +27,7 @@ public class LoginMenu {
     String username = input.nextLine();
     System.out.print("Enter password: ");
     String password = input.nextLine();
-    if (!studentManager.login(username, password)) {
+    if (!userManager.login(username, password)) {
       System.out.println("Login failed. Username or password are incorrect.");
       return;
     }
@@ -35,7 +35,7 @@ public class LoginMenu {
   }
 
   public boolean display() {
-    while (studentManager.getCurrentUser() == null) {
+    while (userManager.getCurrentUser() == null) {
       System.out.println("Log In or Register to Ceryx:");
       System.out.println("\n(1) Register");
       System.out.println("(2) Log In");

@@ -1,31 +1,16 @@
-public class Student {
-  private int id;
-  private String username;
-  private String password;
+import java.util.List;
 
-  // Constructor
-  protected Student(int id, String username, String password) {
-    this.id = id;
-    this.username = username;
-    this.password = password;
+public class Student extends User {
+  public Student(int id, String username, String password) {
+    super(id, username, password, Role.STUDENT);
   }
 
-  // Getters
-  public int getId() {
-    return id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  // Setters
-  public void setPassword(String pw) {
-    this.password = pw;
+  @Override
+  public List<String> getMenuItems() {
+    return List.of(
+        "View Announcements",
+        "Account Details",
+        "Log Out"
+        );
   }
 }
-

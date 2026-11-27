@@ -3,15 +3,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Dashboard {
-  private final StudentManager manager;
+  private final UserManager userManager;
   private Scanner input = new Scanner(System.in);
 
-  public Dashboard(StudentManager manager) {
-    this.manager = manager;
+  public Dashboard(UserManager userManager) {
+    this.userManager = userManager;
   }
 
   public void greetUser() {
-    Student currentUser = manager.getCurrentUser();
+    User currentUser = userManager.getCurrentUser();
+    if (currentUser == null) {
+      return;
+    }
     System.out.printf("\nWelcome, %s!\n", currentUser.getUsername());
   }
 
@@ -36,13 +39,11 @@ public class Dashboard {
 
       switch (selectedMenuItem) {
         case "View Announcements":
-          // TODO: Implement announcement menu.
-          break;
         case "Account Details":
-          // TODO: Implement account details.
+          System.out.println("Not Implemented Yet.");
           break;
         case "Log Out":
-          manager.logout();
+          userManager.logout();
           return;
         default:
           System.out.println("Invalid choice.");
