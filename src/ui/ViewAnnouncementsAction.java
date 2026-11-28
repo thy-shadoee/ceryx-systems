@@ -1,5 +1,7 @@
 package ui;
 
+import service.ViewAnnouncement;
+
 public class ViewAnnouncementsAction implements MenuItem {
   @Override
   public String label() {
@@ -8,6 +10,9 @@ public class ViewAnnouncementsAction implements MenuItem {
 
   @Override
   public void execute() {
-    System.out.println("Announcement listing not implemented yet.");
+    //System.out.println("Announcement listing not implemented yet.");
+    ViewAnnouncement va = new ViewAnnouncement();
+    va.run();
+    
   }
 }
